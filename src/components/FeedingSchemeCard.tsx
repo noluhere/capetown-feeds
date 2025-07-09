@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, Phone, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { MapPin, Clock, Phone, Users, Navigation } from "lucide-react";
 
 interface FeedingScheme {
   id: string;
@@ -70,10 +71,20 @@ export const FeedingSchemeCard = ({ scheme }: FeedingSchemeCardProps) => {
           <span>{scheme.targetAudience}</span>
         </div>
         
-        <div className="pt-2">
+        <div className="pt-2 space-y-3">
           <Badge variant="secondary" className="text-xs">
             {scheme.foodType}
           </Badge>
+          
+          {/* Mobile-friendly action buttons */}
+          <div className="grid grid-cols-2 gap-2">
+            <Button size="sm" className="bg-community hover:bg-community/90 text-primary-foreground">
+              Get Directions
+            </Button>
+            <Button size="sm" variant="outline" className="border-community text-community hover:bg-community hover:text-primary-foreground">
+              Contact Now
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
