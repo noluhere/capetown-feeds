@@ -2,7 +2,8 @@ import { useState, useMemo } from "react";
 import { SearchSection } from "@/components/SearchSection";
 import { FeedingSchemeCard } from "@/components/FeedingSchemeCard";
 import { feedingSchemes } from "@/data/feedingSchemes";
-import { Heart, MapPin, Clock } from "lucide-react";
+import { Heart, MapPin, Clock, DollarSign, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,7 +32,7 @@ const Index = () => {
           <div className="flex items-center gap-3">
             <Heart className="h-8 w-8 text-community" />
             <div>
-              <h1 className="text-2xl font-bold text-foreground">Cape Town Feeds Finder</h1>
+              <h1 className="text-2xl font-bold text-foreground">DailyBread</h1>
               <p className="text-sm text-muted-foreground">Connecting communities with local feeding schemes</p>
             </div>
           </div>
@@ -86,6 +87,53 @@ const Index = () => {
                 <div className="text-sm text-muted-foreground">Areas Covered</div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Donate Section */}
+      <section className="py-16 bg-gradient-to-r from-community-light to-warm-blue">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Help Us Make a Difference
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+              Your support helps us maintain this directory and support feeding schemes across Cape Town. 
+              Every contribution, whether time or money, helps feed families in need.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Donate Money */}
+            <div className="bg-card rounded-lg p-8 shadow-lg text-center">
+              <DollarSign className="h-12 w-12 text-community mx-auto mb-4" />
+              <h4 className="text-xl font-semibold text-foreground mb-3">Donate Money</h4>
+              <p className="text-muted-foreground mb-6">
+                Help us maintain this platform and support feeding schemes with direct financial contributions.
+              </p>
+              <Button className="w-full bg-community hover:bg-community/90 text-primary-foreground">
+                Make a Donation
+              </Button>
+            </div>
+            
+            {/* Volunteer Time */}
+            <div className="bg-card rounded-lg p-8 shadow-lg text-center">
+              <Users className="h-12 w-12 text-community mx-auto mb-4" />
+              <h4 className="text-xl font-semibold text-foreground mb-3">Volunteer Your Time</h4>
+              <p className="text-muted-foreground mb-6">
+                Join local feeding schemes as a volunteer. Help prepare meals, serve food, or assist with operations.
+              </p>
+              <Button variant="outline" className="w-full border-community text-community hover:bg-community hover:text-primary-foreground">
+                Find Volunteer Opportunities
+              </Button>
+            </div>
+          </div>
+          
+          <div className="text-center mt-12">
+            <p className="text-sm text-muted-foreground">
+              Together, we can ensure no one goes hungry in our community.
+            </p>
           </div>
         </div>
       </section>
