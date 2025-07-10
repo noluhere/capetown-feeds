@@ -4,15 +4,17 @@ import { FeedingSchemeCard } from "@/components/FeedingSchemeCard";
 import { CurrentNeedCard } from "@/components/CurrentNeedCard";
 import { feedingSchemes } from "@/data/feedingSchemes";
 import { currentNeeds } from "@/data/currentNeeds";
-import { Heart, MapPin, Clock, DollarSign, Users, AlertCircle, Plus } from "lucide-react";
+import { Heart, MapPin, Clock, DollarSign, Users, AlertCircle, Plus, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import heroImage from "@/assets/hero-child-meal.jpg";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedArea, setSelectedArea] = useState("All Areas");
   const [selectedNeedType, setSelectedNeedType] = useState("all");
+  const [schemesExpanded, setSchemesExpanded] = useState(false);
 
   const filteredSchemes = useMemo(() => {
     return feedingSchemes.filter((scheme) => {
@@ -48,13 +50,88 @@ const Index = () => {
       {/* Header */}
       <header className="bg-community-light border-b">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center gap-3">
-            <Heart className="h-8 w-8 text-community" />
-            <div>
-              <h1 className="text-2xl font-bold text-foreground">DailyBread</h1>
-              <p className="text-sm text-muted-foreground">Connecting communities with local feeding schemes</p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Heart className="h-8 w-8 text-community" />
+              <div>
+                <h1 className="text-2xl font-bold text-foreground">DailyBread</h1>
+                <p className="text-sm text-muted-foreground">Connecting communities with local feeding schemes</p>
+              </div>
             </div>
+            
+            <Tabs defaultValue="help" className="w-auto">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="help" className="text-xs md:text-sm px-2 md:px-3">Help Make a Difference</TabsTrigger>
+                <TabsTrigger value="needs" className="text-xs md:text-sm px-2 md:px-3">What's Needed Now</TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
+          
+          {/* Tab Content */}
+          <Tabs defaultValue="help" className="w-full mt-6">
+            <TabsContent value="help" className="mt-0">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 max-w-4xl mx-auto">
+                {/* Donate Money */}
+                <div className="bg-card rounded-lg p-4 md:p-6 shadow-lg text-center">
+                  <DollarSign className="h-8 w-8 md:h-10 md:w-10 text-community mx-auto mb-3" />
+                  <h4 className="text-base md:text-lg font-semibold text-foreground mb-2">Donate Money</h4>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Help us maintain this platform and support feeding schemes with direct financial contributions.
+                  </p>
+                  <Button 
+                    size="sm"
+                    className="w-full bg-community hover:bg-community/90 text-primary-foreground"
+                    onClick={() => window.open('https://forms.google.com/donate-money', '_blank')}
+                  >
+                    Make a Donation
+                  </Button>
+                </div>
+                
+                {/* Volunteer Time */}
+                <div className="bg-card rounded-lg p-4 md:p-6 shadow-lg text-center">
+                  <Users className="h-8 w-8 md:h-10 md:w-10 text-community mx-auto mb-3" />
+                  <h4 className="text-base md:text-lg font-semibold text-foreground mb-2">Volunteer Your Time</h4>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Join local feeding schemes as a volunteer. Help prepare meals, serve food, or assist with operations.
+                  </p>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="w-full border-community text-community hover:bg-community hover:text-primary-foreground"
+                    onClick={() => window.open('https://forms.google.com/volunteer-signup', '_blank')}
+                  >
+                    Find Volunteer Opportunities
+                  </Button>
+                </div>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="needs" className="mt-0">
+              <div className="text-center mb-4">
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <AlertCircle className="h-5 w-5 md:h-6 md:w-6 text-community" />
+                  <h4 className="text-lg md:text-xl font-bold text-foreground">Urgent Needs</h4>
+                </div>
+                <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+                  Help make an immediate impact by addressing these urgent needs from feeding schemes across Cape Town.
+                </p>
+              </div>
+
+              {filteredNeeds.length === 0 ? (
+                <div className="text-center py-6">
+                  <p className="text-muted-foreground">
+                    No urgent needs found matching your criteria. Try adjusting your filters.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+                  {filteredNeeds.map((need) => (
+                    <CurrentNeedCard key={need.id} need={need} />
+                  ))}
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
         </div>
       </header>
 
@@ -120,126 +197,53 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Community Action Tabs */}
-      <section className="py-16 bg-gradient-to-r from-community-light to-warm-blue">
+      {/* Collapsible Feeding Schemes Section */}
+      <section className="py-12">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-              Community Action
-            </h3>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Join our community efforts to support local feeding schemes and help those in need.
-            </p>
-          </div>
-          
-          <Tabs defaultValue="help" className="w-full max-w-6xl mx-auto">
-            <TabsList className="grid w-full grid-cols-2 mb-8">
-              <TabsTrigger value="help" className="text-sm md:text-base">Help Make a Difference</TabsTrigger>
-              <TabsTrigger value="needs" className="text-sm md:text-base">What's Needed Now</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="help" className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
-                {/* Donate Money */}
-                <div className="bg-card rounded-lg p-6 md:p-8 shadow-lg text-center">
-                  <DollarSign className="h-10 w-10 md:h-12 md:w-12 text-community mx-auto mb-4" />
-                  <h4 className="text-lg md:text-xl font-semibold text-foreground mb-3">Donate Money</h4>
-                  <p className="text-sm md:text-base text-muted-foreground mb-6">
-                    Help us maintain this platform and support feeding schemes with direct financial contributions.
-                  </p>
+          <Collapsible open={schemesExpanded} onOpenChange={setSchemesExpanded}>
+            <div className="mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                <CollapsibleTrigger asChild>
                   <Button 
-                    className="w-full bg-community hover:bg-community/90 text-primary-foreground"
-                    onClick={() => window.open('https://forms.google.com/donate-money', '_blank')}
+                    variant="ghost" 
+                    className="text-xl md:text-2xl font-semibold text-foreground hover:bg-transparent p-0 h-auto flex items-center gap-2 justify-start"
                   >
-                    Make a Donation
+                    {schemesExpanded ? (
+                      <ChevronUp className="h-5 w-5" />
+                    ) : (
+                      <ChevronDown className="h-5 w-5" />
+                    )}
+                    {searchQuery || selectedArea !== "All Areas" 
+                      ? `Feeding Schemes (${filteredSchemes.length} found)` 
+                      : "All Feeding Schemes"}
                   </Button>
-                </div>
-                
-                {/* Volunteer Time */}
-                <div className="bg-card rounded-lg p-6 md:p-8 shadow-lg text-center">
-                  <Users className="h-10 w-10 md:h-12 md:w-12 text-community mx-auto mb-4" />
-                  <h4 className="text-lg md:text-xl font-semibold text-foreground mb-3">Volunteer Your Time</h4>
-                  <p className="text-sm md:text-base text-muted-foreground mb-6">
-                    Join local feeding schemes as a volunteer. Help prepare meals, serve food, or assist with operations.
-                  </p>
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-community text-community hover:bg-community hover:text-primary-foreground"
-                    onClick={() => window.open('https://forms.google.com/volunteer-signup', '_blank')}
-                  >
-                    Find Volunteer Opportunities
-                  </Button>
-                </div>
+                </CollapsibleTrigger>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="border-community text-community hover:bg-community hover:text-primary-foreground flex items-center gap-2"
+                  onClick={() => window.open('https://forms.google.com/submit-scheme', '_blank')}
+                >
+                  <Plus className="h-4 w-4" />
+                  Submit a Scheme
+                </Button>
               </div>
-              
-              <div className="text-center">
-                <p className="text-sm text-muted-foreground">
-                  Together, we can ensure no one goes hungry in our community.
-                </p>
-              </div>
-            </TabsContent>
+            </div>
             
-            <TabsContent value="needs" className="space-y-6">
-              <div className="text-center mb-6">
-                <div className="flex items-center justify-center gap-2 mb-4">
-                  <AlertCircle className="h-6 w-6 md:h-8 md:w-8 text-community" />
-                  <h4 className="text-xl md:text-2xl font-bold text-foreground">Urgent Needs</h4>
-                </div>
-                <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-                  Help make an immediate impact by addressing these urgent needs from feeding schemes across Cape Town.
+            <CollapsibleContent className="space-y-6">
+              {filteredSchemes.length === 0 ? (
+                <p className="text-muted-foreground">
+                  No feeding schemes found matching your criteria. Try adjusting your search or area filter.
                 </p>
-              </div>
-
-              {filteredNeeds.length === 0 ? (
-                <div className="text-center py-8">
-                  <p className="text-muted-foreground">
-                    No urgent needs found matching your criteria. Try adjusting your filters.
-                  </p>
-                </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-                  {filteredNeeds.map((need) => (
-                    <CurrentNeedCard key={need.id} need={need} />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredSchemes.map((scheme) => (
+                    <FeedingSchemeCard key={scheme.id} scheme={scheme} />
                   ))}
                 </div>
               )}
-            </TabsContent>
-          </Tabs>
-        </div>
-      </section>
-
-      {/* Results Section */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="mb-6">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-              <h3 className="text-xl md:text-2xl font-semibold text-foreground">
-                {searchQuery || selectedArea !== "All Areas" 
-                  ? `Feeding Schemes (${filteredSchemes.length} found)` 
-                  : "All Feeding Schemes"}
-              </h3>
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="border-community text-community hover:bg-community hover:text-primary-foreground flex items-center gap-2"
-                onClick={() => window.open('https://forms.google.com/submit-scheme', '_blank')}
-              >
-                <Plus className="h-4 w-4" />
-                Submit a Scheme
-              </Button>
-            </div>
-            {filteredSchemes.length === 0 && (
-              <p className="text-muted-foreground">
-                No feeding schemes found matching your criteria. Try adjusting your search or area filter.
-              </p>
-            )}
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredSchemes.map((scheme) => (
-              <FeedingSchemeCard key={scheme.id} scheme={scheme} />
-            ))}
-          </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
       </section>
 
