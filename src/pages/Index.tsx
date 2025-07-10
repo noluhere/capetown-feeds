@@ -4,8 +4,9 @@ import { FeedingSchemeCard } from "@/components/FeedingSchemeCard";
 import { CurrentNeedCard } from "@/components/CurrentNeedCard";
 import { feedingSchemes } from "@/data/feedingSchemes";
 import { currentNeeds } from "@/data/currentNeeds";
-import { Heart, MapPin, Clock, DollarSign, Users, AlertCircle } from "lucide-react";
+import { Heart, MapPin, Clock, DollarSign, Users, AlertCircle, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import heroImage from "@/assets/hero-child-meal.jpg";
 
 const Index = () => {
@@ -119,86 +120,91 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Donate Section */}
+      {/* Community Action Tabs */}
       <section className="py-16 bg-gradient-to-r from-community-light to-warm-blue">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Help Us Make a Difference
-            </h3>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-              Your support helps us maintain this directory and support feeding schemes across Cape Town. 
-              Every contribution, whether time or money, helps feed families in need.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Donate Money */}
-            <div className="bg-card rounded-lg p-8 shadow-lg text-center">
-              <DollarSign className="h-12 w-12 text-community mx-auto mb-4" />
-              <h4 className="text-xl font-semibold text-foreground mb-3">Donate Money</h4>
-              <p className="text-muted-foreground mb-6">
-                Help us maintain this platform and support feeding schemes with direct financial contributions.
-              </p>
-              <Button 
-                className="w-full bg-community hover:bg-community/90 text-primary-foreground"
-                onClick={() => window.open('https://forms.google.com/donate-money', '_blank')}
-              >
-                Make a Donation
-              </Button>
-            </div>
-            
-            {/* Volunteer Time */}
-            <div className="bg-card rounded-lg p-8 shadow-lg text-center">
-              <Users className="h-12 w-12 text-community mx-auto mb-4" />
-              <h4 className="text-xl font-semibold text-foreground mb-3">Volunteer Your Time</h4>
-              <p className="text-muted-foreground mb-6">
-                Join local feeding schemes as a volunteer. Help prepare meals, serve food, or assist with operations.
-              </p>
-              <Button 
-                variant="outline" 
-                className="w-full border-community text-community hover:bg-community hover:text-primary-foreground"
-                onClick={() => window.open('https://forms.google.com/volunteer-signup', '_blank')}
-              >
-                Find Volunteer Opportunities
-              </Button>
-            </div>
-          </div>
-          
-          <div className="text-center mt-12">
-            <p className="text-sm text-muted-foreground">
-              Together, we can ensure no one goes hungry in our community.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* What's Needed Now Section */}
-      <section className="py-12 bg-muted/30">
-        <div className="container mx-auto px-4">
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <AlertCircle className="h-8 w-8 text-community" />
-              <h3 className="text-3xl font-bold text-foreground">What's Needed Now</h3>
-            </div>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Urgent needs from feeding schemes across Cape Town. Help make an immediate impact.
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              Community Action
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Join our community efforts to support local feeding schemes and help those in need.
             </p>
           </div>
+          
+          <Tabs defaultValue="help" className="w-full max-w-6xl mx-auto">
+            <TabsList className="grid w-full grid-cols-2 mb-8">
+              <TabsTrigger value="help" className="text-sm md:text-base">Help Make a Difference</TabsTrigger>
+              <TabsTrigger value="needs" className="text-sm md:text-base">What's Needed Now</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="help" className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
+                {/* Donate Money */}
+                <div className="bg-card rounded-lg p-6 md:p-8 shadow-lg text-center">
+                  <DollarSign className="h-10 w-10 md:h-12 md:w-12 text-community mx-auto mb-4" />
+                  <h4 className="text-lg md:text-xl font-semibold text-foreground mb-3">Donate Money</h4>
+                  <p className="text-sm md:text-base text-muted-foreground mb-6">
+                    Help us maintain this platform and support feeding schemes with direct financial contributions.
+                  </p>
+                  <Button 
+                    className="w-full bg-community hover:bg-community/90 text-primary-foreground"
+                    onClick={() => window.open('https://forms.google.com/donate-money', '_blank')}
+                  >
+                    Make a Donation
+                  </Button>
+                </div>
+                
+                {/* Volunteer Time */}
+                <div className="bg-card rounded-lg p-6 md:p-8 shadow-lg text-center">
+                  <Users className="h-10 w-10 md:h-12 md:w-12 text-community mx-auto mb-4" />
+                  <h4 className="text-lg md:text-xl font-semibold text-foreground mb-3">Volunteer Your Time</h4>
+                  <p className="text-sm md:text-base text-muted-foreground mb-6">
+                    Join local feeding schemes as a volunteer. Help prepare meals, serve food, or assist with operations.
+                  </p>
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-community text-community hover:bg-community hover:text-primary-foreground"
+                    onClick={() => window.open('https://forms.google.com/volunteer-signup', '_blank')}
+                  >
+                    Find Volunteer Opportunities
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="text-center">
+                <p className="text-sm text-muted-foreground">
+                  Together, we can ensure no one goes hungry in our community.
+                </p>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="needs" className="space-y-6">
+              <div className="text-center mb-6">
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <AlertCircle className="h-6 w-6 md:h-8 md:w-8 text-community" />
+                  <h4 className="text-xl md:text-2xl font-bold text-foreground">Urgent Needs</h4>
+                </div>
+                <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
+                  Help make an immediate impact by addressing these urgent needs from feeding schemes across Cape Town.
+                </p>
+              </div>
 
-          {filteredNeeds.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-muted-foreground">
-                No urgent needs found matching your criteria. Try adjusting your filters.
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredNeeds.map((need) => (
-                <CurrentNeedCard key={need.id} need={need} />
-              ))}
-            </div>
-          )}
+              {filteredNeeds.length === 0 ? (
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground">
+                    No urgent needs found matching your criteria. Try adjusting your filters.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+                  {filteredNeeds.map((need) => (
+                    <CurrentNeedCard key={need.id} need={need} />
+                  ))}
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
@@ -206,11 +212,22 @@ const Index = () => {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="mb-6">
-            <h3 className="text-2xl font-semibold text-foreground mb-2">
-              {searchQuery || selectedArea !== "All Areas" 
-                ? `Feeding Schemes (${filteredSchemes.length} found)` 
-                : "All Feeding Schemes"}
-            </h3>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+              <h3 className="text-xl md:text-2xl font-semibold text-foreground">
+                {searchQuery || selectedArea !== "All Areas" 
+                  ? `Feeding Schemes (${filteredSchemes.length} found)` 
+                  : "All Feeding Schemes"}
+              </h3>
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="border-community text-community hover:bg-community hover:text-primary-foreground flex items-center gap-2"
+                onClick={() => window.open('https://forms.google.com/submit-scheme', '_blank')}
+              >
+                <Plus className="h-4 w-4" />
+                Submit a Scheme
+              </Button>
+            </div>
             {filteredSchemes.length === 0 && (
               <p className="text-muted-foreground">
                 No feeding schemes found matching your criteria. Try adjusting your search or area filter.
