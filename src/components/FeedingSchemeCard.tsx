@@ -78,10 +78,24 @@ export const FeedingSchemeCard = ({ scheme }: FeedingSchemeCardProps) => {
           
           {/* Mobile-friendly action buttons */}
           <div className="grid grid-cols-2 gap-2">
-            <Button size="sm" className="bg-community hover:bg-community/90 text-primary-foreground">
+            <Button 
+              size="sm" 
+              className="bg-community hover:bg-community/90 text-primary-foreground"
+              onClick={() => {
+                const address = encodeURIComponent(scheme.address);
+                window.open(`https://www.google.com/maps/search/?api=1&query=${address}`, '_blank');
+              }}
+            >
               Get Directions
             </Button>
-            <Button size="sm" variant="outline" className="border-community text-community hover:bg-community hover:text-primary-foreground">
+            <Button 
+              size="sm" 
+              variant="outline" 
+              className="border-community text-community hover:bg-community hover:text-primary-foreground"
+              onClick={() => {
+                window.open(`tel:${scheme.contact}`, '_self');
+              }}
+            >
               Contact Now
             </Button>
           </div>

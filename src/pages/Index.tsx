@@ -140,7 +140,10 @@ const Index = () => {
               <p className="text-muted-foreground mb-6">
                 Help us maintain this platform and support feeding schemes with direct financial contributions.
               </p>
-              <Button className="w-full bg-community hover:bg-community/90 text-primary-foreground">
+              <Button 
+                className="w-full bg-community hover:bg-community/90 text-primary-foreground"
+                onClick={() => window.open('https://forms.google.com/donate-money', '_blank')}
+              >
                 Make a Donation
               </Button>
             </div>
@@ -152,7 +155,11 @@ const Index = () => {
               <p className="text-muted-foreground mb-6">
                 Join local feeding schemes as a volunteer. Help prepare meals, serve food, or assist with operations.
               </p>
-              <Button variant="outline" className="w-full border-community text-community hover:bg-community hover:text-primary-foreground">
+              <Button 
+                variant="outline" 
+                className="w-full border-community text-community hover:bg-community hover:text-primary-foreground"
+                onClick={() => window.open('https://forms.google.com/volunteer-signup', '_blank')}
+              >
                 Find Volunteer Opportunities
               </Button>
             </div>

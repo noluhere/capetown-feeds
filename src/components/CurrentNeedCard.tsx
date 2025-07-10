@@ -104,7 +104,21 @@ export const CurrentNeedCard = ({ need }: CurrentNeedCardProps) => {
           <span>{need.contact}</span>
         </div>
         
-        <Button className="w-full bg-community hover:bg-community/90 text-primary-foreground">
+        <Button 
+          className="w-full bg-community hover:bg-community/90 text-primary-foreground"
+          onClick={() => {
+            if (need.type === 'volunteers') {
+              // Open volunteer sign-up form
+              window.open('https://forms.google.com/volunteer-signup', '_blank');
+            } else if (need.type === 'donations') {
+              // Open donation form
+              window.open('https://forms.google.com/donate', '_blank');
+            } else if (need.type === 'supplies') {
+              // Contact for supplies
+              window.open(`tel:${need.contact}`, '_self');
+            }
+          }}
+        >
           {getActionText(need.type)}
         </Button>
       </CardContent>
