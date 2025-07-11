@@ -15,6 +15,7 @@ const Index = () => {
   const [selectedArea, setSelectedArea] = useState("All Areas");
   const [selectedNeedType, setSelectedNeedType] = useState("all");
   const [schemesExpanded, setSchemesExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState("help");
 
   const filteredSchemes = useMemo(() => {
     return feedingSchemes.filter((scheme) => {
@@ -50,7 +51,7 @@ const Index = () => {
       {/* Header */}
       <header className="bg-community-light border-b">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-6">
             <div className="flex items-center gap-3">
               <Heart className="h-8 w-8 text-community" />
               <div>
@@ -58,17 +59,23 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">Connecting communities with local feeding schemes</p>
               </div>
             </div>
-            
-            <Tabs defaultValue="help" className="w-auto">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="help" className="text-xs md:text-sm px-2 md:px-3">Help Make a Difference</TabsTrigger>
-                <TabsTrigger value="needs" className="text-xs md:text-sm px-2 md:px-3">What's Needed Now</TabsTrigger>
-              </TabsList>
-            </Tabs>
           </div>
           
-          {/* Tab Content */}
-          <Tabs defaultValue="help" className="w-full mt-6">
+          {/* Consolidated Tabs */}
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mt-6">
+            <div className="flex justify-center mb-6">
+              <TabsList className="grid grid-cols-2 w-full max-w-md">
+                <TabsTrigger value="help" className="text-xs sm:text-sm px-2 sm:px-4">
+                  <span className="hidden sm:inline">Help Make a Difference</span>
+                  <span className="sm:hidden">Help</span>
+                </TabsTrigger>
+                <TabsTrigger value="needs" className="text-xs sm:text-sm px-2 sm:px-4">
+                  <span className="hidden sm:inline">What's Needed Now</span>
+                  <span className="sm:hidden">Needs</span>
+                </TabsTrigger>
+              </TabsList>
+            </div>
+
             <TabsContent value="help" className="mt-0">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 max-w-4xl mx-auto">
                 {/* Donate Money */}
