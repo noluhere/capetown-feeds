@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { FeedingSchemeCard } from "@/components/FeedingSchemeCard";
 import { AppHeader } from "@/components/AppHeader";
 import { HeroSection } from "@/components/HeroSection";
+import { DonationVolunteerTabs } from "@/components/DonationVolunteerTabs";
 import { StatsSection } from "@/components/StatsSection";
 import { AppFooter } from "@/components/AppFooter";
 import { feedingSchemes } from "@/data/feedingSchemes";
@@ -46,11 +47,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <AppHeader 
-        activeTab={activeTab} 
-        onTabChange={setActiveTab} 
-        filteredNeeds={filteredNeeds}
-      />
+      <AppHeader />
 
       <HeroSection 
         onSearch={setSearchQuery}
@@ -58,6 +55,12 @@ const Index = () => {
         onNeedFilter={setSelectedNeedType}
         selectedArea={selectedArea}
         selectedNeedType={selectedNeedType}
+      />
+
+      <DonationVolunteerTabs 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab} 
+        filteredNeeds={filteredNeeds}
       />
 
       <StatsSection feedingSchemes={feedingSchemes} />
